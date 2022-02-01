@@ -1,0 +1,13 @@
+services:
+  openapi:
+    image: openapitools/openapi-generator-cli
+    volumes:
+      - ./resources:/resources
+      - ./transport:/transport
+      - ./scripts:/scripts
+
+  cpp:
+    image: rabits/qt:5.15-desktop
+    volumes:
+      - ./transport:/transport
+      - ./scripts:/scripts
