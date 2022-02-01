@@ -26,9 +26,13 @@ namespace {{this}} {
 {{#vendorExtensions.x-has-forward-declarations}}
 {{#vendorExtensions.x-forward-declarations}}{{.}}
 {{/vendorExtensions.x-forward-declarations}}{{/vendorExtensions.x-has-forward-declarations}}
+
+class {{classname}}Private;
+
 class {{classname}} : public {{prefix}}{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Enum{{/isEnum}} {
 public:
     {{classname}}();
+    {{classname}}(const {{classname}} &other);
     {{classname}}(QString json);
     ~{{classname}}() override;
 
@@ -61,15 +65,9 @@ public:
 
 private:
     void initializeModel();
-{{^isEnum}}{{#vars}}
-    {{{dataType}}} {{name}};
-    bool m_{{name}}_isSet;
-    bool m_{{name}}_isValid;
-{{/vars}}{{/isEnum}}{{#isEnum}}
-    e{{classname}} m_value;
-    bool m_value_isSet;
-    bool m_value_isValid;
-{{/isEnum}}};
+    Q_DECLARE_PRIVATE({{classname}})
+    QSharedPointer<{{classname}}Private> d_ptr;
+};
 
 {{#cppNamespaceDeclarations}}
 } // namespace {{this}}
