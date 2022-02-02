@@ -27,9 +27,8 @@ class {{classname}}Private {
 {{/isEnum}}};
 
 {{classname}}::{{classname}}()
-    : d_ptr(new {{classname}}Private{})
+    : d_ptr()
 {
-    this->initializeModel();
 }
 
 {{classname}}::{{classname}}(const {{classname}}& other)
@@ -38,24 +37,27 @@ class {{classname}}Private {
 }
 
 {{classname}}::{{classname}}(QString json)
-    : d_ptr(new {{classname}}Private{})
+    : d_ptr(nullptr)
 {
-    this->initializeModel();
     this->fromJson(json);
 }
 
 {{classname}}::~{{classname}}() = default;
 
 void {{classname}}::initializeModel() {
-    Q_D({{classname}});
+    if (d_ptr == nullptr) {
+        d_ptr.reset(new {{classname}}Private{});
+
+        Q_D({{classname}});
 
 {{^isEnum}}{{#vars}}
-    d->{{name}}_isSet = false;
-    d->{{name}}_isValid = false;{{^-last}}
+        d->{{name}}_isSet = false;
+        d->{{name}}_isValid = false;{{^-last}}
 {{/-last}}{{/vars}}{{/isEnum}}{{#isEnum}}
-    d->value_isSet = false;
-    d->value_isValid = false;
-    d->value = e{{classname}}::INVALID_VALUE_OPENAPI_GENERATED;{{/isEnum}}
+        d->value_isSet = false;
+        d->value_isValid = false;
+        d->value = e{{classname}}::INVALID_VALUE_OPENAPI_GENERATED;{{/isEnum}}
+    }
 }
 
 void {{classname}}::fromJson(QString jsonString) {
@@ -70,6 +72,8 @@ void {{classname}}::fromJson(QString jsonString) {
 }
 
 void {{classname}}::fromJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnum}}(QJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnum}} json) {
+    initializeModel();
+
     Q_D({{classname}});
 {{^isEnum}}{{#vars}}{{^isContainer}}
     d->{{name}}_isValid = ::{{cppNamespace}}::fromJsonValue(d->{{name}}, json[QString("{{baseName}}")]);

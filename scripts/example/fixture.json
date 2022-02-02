@@ -1,0 +1,756 @@
+{
+    "id": "sdafsadf",
+    "createdBy": {
+      "application": {
+        "displayName": "string",
+        "id": "string"
+      },
+      "device": {
+        "displayName": "string",
+        "id": "string"
+      },
+      "user": {
+        "displayName": "string",
+        "id": "string"
+      }
+    },
+    "createdDateTime": "2022-02-01T18:10:04.163Z",
+    "description": "string",
+    "eTag": "string",
+    "lastModifiedBy": {
+      "application": {
+        "displayName": "string",
+        "id": "string"
+      },
+      "device": {
+        "displayName": "blergh",
+        "id": "string"
+      },
+      "user": {
+        "displayName": "string",
+        "id": "string"
+      }
+    },
+    "lastModifiedDateTime": "2022-02-01T18:10:04.163Z",
+    "name": "string",
+    "parentReference": {
+      "driveId": "string",
+      "driveType": "string",
+      "id": "string",
+      "name": "string",
+      "path": "string",
+      "shareId": "string"
+    },
+    "webUrl": "string",
+    "createdByUser": {
+      "id": "string",
+      "deletedDateTime": "2022-02-01T18:10:04.163Z",
+      "accountEnabled": true,
+      "businessPhones": [
+        "string"
+      ],
+      "city": "string",
+      "companyName": "string",
+      "country": "str",
+      "createdDateTime": "2022-02-01T18:10:04.163Z",
+      "department": "string",
+      "displayName": "string",
+      "faxNumber": "string",
+      "givenName": "string",
+      "lastPasswordChangeDateTime": "2022-02-01T18:10:04.163Z",
+      "legalAgeGroupClassification": "string",
+      "mail": "string",
+      "mailNickname": "string",
+      "mobilePhone": "string",
+      "onPremisesDistinguishedName": "string",
+      "onPremisesDomainName": "string",
+      "onPremisesImmutableId": "string",
+      "onPremisesSyncEnabled": true,
+      "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.163Z",
+      "onPremisesSamAccountName": "string",
+      "onPremisesUserPrincipalName": "string",
+      "officeLocation": "string",
+      "passwordProfile": {
+        "forceChangePasswordNextSignIn": false
+      },
+      "postalCode": "string",
+      "preferredLanguage": "string",
+      "state": "string",
+      "streetAddress": "string",
+      "surname": "string",
+      "usageLocation": "str",
+      "userPrincipalName": "string",
+      "userType": "string",
+      "aboutMe": "string",
+      "birthday": "2022-02-01T18:10:04.163Z",
+      "preferredName": "string",
+      "drive": "string",
+      "drives": [
+        "string"
+      ]
+    },
+    "lastModifiedByUser": {
+      "id": "string",
+      "deletedDateTime": "2022-02-01T18:10:04.163Z",
+      "accountEnabled": true,
+      "businessPhones": [
+        "string"
+      ],
+      "city": "string",
+      "companyName": "string",
+      "country": "str",
+      "createdDateTime": "2022-02-01T18:10:04.163Z",
+      "department": "string",
+      "displayName": "string",
+      "faxNumber": "string",
+      "givenName": "string",
+      "lastPasswordChangeDateTime": "2022-02-01T18:10:04.163Z",
+      "legalAgeGroupClassification": "string",
+      "mail": "string",
+      "mailNickname": "string",
+      "mobilePhone": "string",
+      "onPremisesDistinguishedName": "string",
+      "onPremisesDomainName": "string",
+      "onPremisesImmutableId": "string",
+      "onPremisesSyncEnabled": true,
+      "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.163Z",
+      "onPremisesSamAccountName": "string",
+      "onPremisesUserPrincipalName": "string",
+      "officeLocation": "string",
+      "passwordProfile": {
+        "forceChangePasswordNextSignIn": false
+      },
+      "postalCode": "string",
+      "preferredLanguage": "string",
+      "state": "string",
+      "streetAddress": "string",
+      "surname": "string",
+      "usageLocation": "str",
+      "userPrincipalName": "string",
+      "userType": "string",
+      "aboutMe": "string",
+      "birthday": "2022-02-01T18:10:04.163Z",
+      "preferredName": "string",
+      "drive": "string",
+      "drives": [
+        "string"
+      ]
+    },
+    "driveType": "string",
+    "owner": {
+      "application": {
+        "displayName": "string",
+        "id": "string"
+      },
+      "device": {
+        "displayName": "string",
+        "id": "string"
+      },
+      "user": {
+        "displayName": "string",
+        "id": "string"
+      }
+    },
+    "quota": {
+      "deleted": 0,
+      "remaining": 0,
+      "state": "string",
+      "total": 0,
+      "used": 0
+    },
+    "items": [
+      {
+        "id": "string",
+        "createdBy": {
+          "application": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "device": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "user": {
+            "displayName": "string",
+            "id": "string"
+          }
+        },
+        "createdDateTime": "2022-02-01T18:10:04.163Z",
+        "description": "string",
+        "eTag": "string",
+        "lastModifiedBy": {
+          "application": {
+            "displayName": "BLERGH",
+            "id": "string"
+          },
+          "device": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "user": {
+            "displayName": "string",
+            "id": "string"
+          }
+        },
+        "lastModifiedDateTime": "2022-02-01T18:10:04.163Z",
+        "name": "string",
+        "parentReference": {
+          "driveId": "string",
+          "driveType": "string",
+          "id": "string",
+          "name": "string",
+          "path": "string",
+          "shareId": "string"
+        },
+        "webUrl": "string",
+        "createdByUser": {
+          "id": "string",
+          "deletedDateTime": "2022-02-01T18:10:04.163Z",
+          "accountEnabled": true,
+          "businessPhones": [
+            "string"
+          ],
+          "city": "string",
+          "companyName": "string",
+          "country": "str",
+          "createdDateTime": "2022-02-01T18:10:04.163Z",
+          "department": "string",
+          "displayName": "string",
+          "faxNumber": "string",
+          "givenName": "string",
+          "lastPasswordChangeDateTime": "2022-02-01T18:10:04.163Z",
+          "legalAgeGroupClassification": "string",
+          "mail": "string",
+          "mailNickname": "string",
+          "mobilePhone": "string",
+          "onPremisesDistinguishedName": "string",
+          "onPremisesDomainName": "string",
+          "onPremisesImmutableId": "string",
+          "onPremisesSyncEnabled": true,
+          "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.163Z",
+          "onPremisesSamAccountName": "string",
+          "onPremisesUserPrincipalName": "string",
+          "officeLocation": "string",
+          "passwordProfile": {
+            "forceChangePasswordNextSignIn": false
+          },
+          "postalCode": "string",
+          "preferredLanguage": "string",
+          "state": "string",
+          "streetAddress": "string",
+          "surname": "string",
+          "usageLocation": "str",
+          "userPrincipalName": "string",
+          "userType": "string",
+          "aboutMe": "string",
+          "birthday": "2022-02-01T18:10:04.163Z",
+          "preferredName": "string",
+          "drive": "string",
+          "drives": [
+            "string"
+          ]
+        },
+        "lastModifiedByUser": {
+          "id": "string",
+          "deletedDateTime": "2022-02-01T18:10:04.163Z",
+          "accountEnabled": true,
+          "businessPhones": [
+            "string"
+          ],
+          "city": "string",
+          "companyName": "string",
+          "country": "str",
+          "createdDateTime": "2022-02-01T18:10:04.163Z",
+          "department": "string",
+          "displayName": "string",
+          "faxNumber": "string",
+          "givenName": "string",
+          "lastPasswordChangeDateTime": "2022-02-01T18:10:04.163Z",
+          "legalAgeGroupClassification": "string",
+          "mail": "string",
+          "mailNickname": "string",
+          "mobilePhone": "string",
+          "onPremisesDistinguishedName": "string",
+          "onPremisesDomainName": "string",
+          "onPremisesImmutableId": "string",
+          "onPremisesSyncEnabled": true,
+          "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.163Z",
+          "onPremisesSamAccountName": "string",
+          "onPremisesUserPrincipalName": "string",
+          "officeLocation": "string",
+          "passwordProfile": {
+            "forceChangePasswordNextSignIn": false
+          },
+          "postalCode": "string",
+          "preferredLanguage": "string",
+          "state": "string",
+          "streetAddress": "string",
+          "surname": "string",
+          "usageLocation": "str",
+          "userPrincipalName": "string",
+          "userType": "string",
+          "aboutMe": "string",
+          "birthday": "2022-02-01T18:10:04.163Z",
+          "preferredName": "string",
+          "drive": "string",
+          "drives": [
+            "string"
+          ]
+        },
+        "content": "string",
+        "cTag": "string",
+        "deleted": {
+          "state": "string"
+        },
+        "file": {
+          "hashes": {
+            "crc32Hash": "string",
+            "quickXorHash": "string",
+            "sha1Hash": "string",
+            "sha256Hash": "string"
+          },
+          "mimeType": "string",
+          "processingMetadata": true
+        },
+        "fileSystemInfo": {
+          "createdDateTime": "2022-02-01T18:10:04.163Z",
+          "lastAccessedDateTime": "2022-02-01T18:10:04.163Z",
+          "lastModifiedDateTime": "2022-02-01T18:10:04.163Z"
+        },
+        "folder": {
+          "childCount": 2147483647,
+          "view": {
+            "sortBy": "string",
+            "sortOrder": "string",
+            "viewType": "string"
+          }
+        },
+        "image": {
+          "height": 2147483647,
+          "width": 2147483647
+        },
+        "root": {},
+        "trash": {
+          "trashedBy": {
+            "application": {
+              "displayName": "string",
+              "id": "string"
+            },
+            "device": {
+              "displayName": "string",
+              "id": "string"
+            },
+            "user": {
+              "displayName": "string",
+              "id": "string"
+            }
+          },
+          "trashedDateTime": "2022-02-01T18:10:04.163Z"
+        },
+        "specialFolder": {
+          "name": "string"
+        },
+        "size": 0,
+        "webDavUrl": "string",
+        "children": [
+          "string"
+        ]
+      }
+    ],
+    "root": {
+      "id": "string",
+      "createdBy": {
+        "application": {
+          "displayName": "string",
+          "id": "string"
+        },
+        "device": {
+          "displayName": "string",
+          "id": "string"
+        },
+        "user": {
+          "displayName": "string",
+          "id": "string"
+        }
+      },
+      "createdDateTime": "2022-02-01T18:10:04.163Z",
+      "description": "string",
+      "eTag": "string",
+      "lastModifiedBy": {
+        "application": {
+          "displayName": "string",
+          "id": "string"
+        },
+        "device": {
+          "displayName": "string",
+          "id": "string"
+        },
+        "user": {
+          "displayName": "string",
+          "id": "string"
+        }
+      },
+      "lastModifiedDateTime": "2022-02-01T18:10:04.163Z",
+      "name": "string",
+      "parentReference": {
+        "driveId": "string",
+        "driveType": "string",
+        "id": "string",
+        "name": "string",
+        "path": "string",
+        "shareId": "string"
+      },
+      "webUrl": "string",
+      "createdByUser": {
+        "id": "string",
+        "deletedDateTime": "2022-02-01T18:10:04.163Z",
+        "accountEnabled": true,
+        "businessPhones": [
+          "string"
+        ],
+        "city": "string",
+        "companyName": "string",
+        "country": "str",
+        "createdDateTime": "2022-02-01T18:10:04.163Z",
+        "department": "string",
+        "displayName": "string",
+        "faxNumber": "string",
+        "givenName": "string",
+        "lastPasswordChangeDateTime": "2022-02-01T18:10:04.163Z",
+        "legalAgeGroupClassification": "string",
+        "mail": "string",
+        "mailNickname": "string",
+        "mobilePhone": "string",
+        "onPremisesDistinguishedName": "string",
+        "onPremisesDomainName": "string",
+        "onPremisesImmutableId": "string",
+        "onPremisesSyncEnabled": true,
+        "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.163Z",
+        "onPremisesSamAccountName": "string",
+        "onPremisesUserPrincipalName": "string",
+        "officeLocation": "string",
+        "passwordProfile": {
+          "forceChangePasswordNextSignIn": false
+        },
+        "postalCode": "string",
+        "preferredLanguage": "string",
+        "state": "string",
+        "streetAddress": "string",
+        "surname": "string",
+        "usageLocation": "str",
+        "userPrincipalName": "string",
+        "userType": "string",
+        "aboutMe": "string",
+        "birthday": "2022-02-01T18:10:04.163Z",
+        "preferredName": "string",
+        "drive": "string",
+        "drives": [
+          "string"
+        ]
+      },
+      "lastModifiedByUser": {
+        "id": "string",
+        "deletedDateTime": "2022-02-01T18:10:04.163Z",
+        "accountEnabled": true,
+        "businessPhones": [
+          "string"
+        ],
+        "city": "string",
+        "companyName": "string",
+        "country": "str",
+        "createdDateTime": "2022-02-01T18:10:04.163Z",
+        "department": "string",
+        "displayName": "string",
+        "faxNumber": "string",
+        "givenName": "string",
+        "lastPasswordChangeDateTime": "2022-02-01T18:10:04.164Z",
+        "legalAgeGroupClassification": "string",
+        "mail": "string",
+        "mailNickname": "string",
+        "mobilePhone": "string",
+        "onPremisesDistinguishedName": "string",
+        "onPremisesDomainName": "string",
+        "onPremisesImmutableId": "string",
+        "onPremisesSyncEnabled": true,
+        "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.164Z",
+        "onPremisesSamAccountName": "string",
+        "onPremisesUserPrincipalName": "string",
+        "officeLocation": "string",
+        "passwordProfile": {
+          "forceChangePasswordNextSignIn": false
+        },
+        "postalCode": "string",
+        "preferredLanguage": "string",
+        "state": "string",
+        "streetAddress": "string",
+        "surname": "string",
+        "usageLocation": "str",
+        "userPrincipalName": "string",
+        "userType": "string",
+        "aboutMe": "string",
+        "birthday": "2022-02-01T18:10:04.164Z",
+        "preferredName": "string",
+        "drive": "string",
+        "drives": [
+          "string"
+        ]
+      },
+      "content": "string",
+      "cTag": "string",
+      "deleted": {
+        "state": "string"
+      },
+      "file": {
+        "hashes": {
+          "crc32Hash": "string",
+          "quickXorHash": "string",
+          "sha1Hash": "string",
+          "sha256Hash": "string"
+        },
+        "mimeType": "string",
+        "processingMetadata": true
+      },
+      "fileSystemInfo": {
+        "createdDateTime": "2022-02-01T18:10:04.164Z",
+        "lastAccessedDateTime": "2022-02-01T18:10:04.164Z",
+        "lastModifiedDateTime": "2022-02-01T18:10:04.164Z"
+      },
+      "folder": {
+        "childCount": 2147483647,
+        "view": {
+          "sortBy": "string",
+          "sortOrder": "string",
+          "viewType": "string"
+        }
+      },
+      "image": {
+        "height": 2147483647,
+        "width": 2147483647
+      },
+      "root": {},
+      "trash": {
+        "trashedBy": {
+          "application": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "device": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "user": {
+            "displayName": "string",
+            "id": "string"
+          }
+        },
+        "trashedDateTime": "2022-02-01T18:10:04.164Z"
+      },
+      "specialFolder": {
+        "name": "string"
+      },
+      "size": 0,
+      "webDavUrl": "string",
+      "children": [
+        "string"
+      ]
+    },
+    "special": [
+      {
+        "id": "string",
+        "createdBy": {
+          "application": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "device": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "user": {
+            "displayName": "string",
+            "id": "string"
+          }
+        },
+        "createdDateTime": "2022-02-01T18:10:04.164Z",
+        "description": "string",
+        "eTag": "string",
+        "lastModifiedBy": {
+          "application": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "device": {
+            "displayName": "string",
+            "id": "string"
+          },
+          "user": {
+            "displayName": "string",
+            "id": "string"
+          }
+        },
+        "lastModifiedDateTime": "2022-02-01T18:10:04.164Z",
+        "name": "string",
+        "parentReference": {
+          "driveId": "string",
+          "driveType": "string",
+          "id": "string",
+          "name": "string",
+          "path": "string",
+          "shareId": "string"
+        },
+        "webUrl": "string",
+        "createdByUser": {
+          "id": "string",
+          "deletedDateTime": "2022-02-01T18:10:04.164Z",
+          "accountEnabled": true,
+          "businessPhones": [
+            "string"
+          ],
+          "city": "string",
+          "companyName": "string",
+          "country": "str",
+          "createdDateTime": "2022-02-01T18:10:04.164Z",
+          "department": "string",
+          "displayName": "string",
+          "faxNumber": "string",
+          "givenName": "string",
+          "lastPasswordChangeDateTime": "2022-02-01T18:10:04.164Z",
+          "legalAgeGroupClassification": "string",
+          "mail": "string",
+          "mailNickname": "string",
+          "mobilePhone": "string",
+          "onPremisesDistinguishedName": "string",
+          "onPremisesDomainName": "string",
+          "onPremisesImmutableId": "string",
+          "onPremisesSyncEnabled": true,
+          "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.164Z",
+          "onPremisesSamAccountName": "string",
+          "onPremisesUserPrincipalName": "string",
+          "officeLocation": "string",
+          "passwordProfile": {
+            "forceChangePasswordNextSignIn": false
+          },
+          "postalCode": "string",
+          "preferredLanguage": "string",
+          "state": "string",
+          "streetAddress": "string",
+          "surname": "string",
+          "usageLocation": "str",
+          "userPrincipalName": "string",
+          "userType": "string",
+          "aboutMe": "string",
+          "birthday": "2022-02-01T18:10:04.164Z",
+          "preferredName": "string",
+          "drive": "string",
+          "drives": [
+            "string"
+          ]
+        },
+        "lastModifiedByUser": {
+          "id": "string",
+          "deletedDateTime": "2022-02-01T18:10:04.164Z",
+          "accountEnabled": true,
+          "businessPhones": [
+            "string"
+          ],
+          "city": "string",
+          "companyName": "string",
+          "country": "str",
+          "createdDateTime": "2022-02-01T18:10:04.164Z",
+          "department": "string",
+          "displayName": "string",
+          "faxNumber": "string",
+          "givenName": "string",
+          "lastPasswordChangeDateTime": "2022-02-01T18:10:04.164Z",
+          "legalAgeGroupClassification": "string",
+          "mail": "string",
+          "mailNickname": "string",
+          "mobilePhone": "string",
+          "onPremisesDistinguishedName": "string",
+          "onPremisesDomainName": "string",
+          "onPremisesImmutableId": "string",
+          "onPremisesSyncEnabled": true,
+          "onPremisesLastSyncDateTime": "2022-02-01T18:10:04.164Z",
+          "onPremisesSamAccountName": "string",
+          "onPremisesUserPrincipalName": "string",
+          "officeLocation": "string",
+          "passwordProfile": {
+            "forceChangePasswordNextSignIn": false
+          },
+          "postalCode": "string",
+          "preferredLanguage": "string",
+          "state": "string",
+          "streetAddress": "string",
+          "surname": "string",
+          "usageLocation": "str",
+          "userPrincipalName": "string",
+          "userType": "string",
+          "aboutMe": "string",
+          "birthday": "2022-02-01T18:10:04.164Z",
+          "preferredName": "string",
+          "drive": "string",
+          "drives": [
+            "string"
+          ]
+        },
+        "content": "string",
+        "cTag": "string",
+        "deleted": {
+          "state": "string"
+        },
+        "file": {
+          "hashes": {
+            "crc32Hash": "string",
+            "quickXorHash": "string",
+            "sha1Hash": "string",
+            "sha256Hash": "string"
+          },
+          "mimeType": "string",
+          "processingMetadata": true
+        },
+        "fileSystemInfo": {
+          "createdDateTime": "2022-02-01T18:10:04.164Z",
+          "lastAccessedDateTime": "2022-02-01T18:10:04.164Z",
+          "lastModifiedDateTime": "2022-02-01T18:10:04.164Z"
+        },
+        "folder": {
+          "childCount": 2147483647,
+          "view": {
+            "sortBy": "string",
+            "sortOrder": "string",
+            "viewType": "string"
+          }
+        },
+        "image": {
+          "height": 2147483647,
+          "width": 2147483647
+        },
+        "root": {},
+        "trash": {
+          "trashedBy": {
+            "application": {
+              "displayName": "string",
+              "id": "string"
+            },
+            "device": {
+              "displayName": "string",
+              "id": "string"
+            },
+            "user": {
+              "displayName": "string",
+              "id": "string"
+            }
+          },
+          "trashedDateTime": "2022-02-01T18:10:04.164Z"
+        },
+        "specialFolder": {
+          "name": "string"
+        },
+        "size": 0,
+        "webDavUrl": "string",
+        "children": [
+          "string"
+        ]
+      }
+    ]
+  }
