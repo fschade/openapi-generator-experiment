@@ -30,25 +30,25 @@ void {{classname}}::initializeServerConfigs() {
     {{/servers}}
 {{#vendorExtensions.x-cpp-global-server-list}}
     defaultConf.append({{prefix}}ServerConfiguration(
-    QUrl("{{{url}}}"),
-    "{{{description}}}{{^description}}No description provided{{/description}}",
+    QUrl::fromEncoded("{{{url}}}"),
+    QStringLiteral("{{{description}}}{{^description}}No description provided{{/description}}"),
     {{#variables}}{{#-first}}QMap<QString, {{prefix}}ServerVariable>{ {{/-first}}
-    {"{{{name}}}", {{prefix}}ServerVariable("{{{description}}}{{^description}}No description provided{{/description}}","{{{defaultValue}}}",
+    {"{{{name}}}", {{prefix}}ServerVariable("{{{description}}}{{^description}}No description provided{{/description}}QLatin1Char(','){{{defaultValue}}}",
     QSet<QString>{ {{#enumValues}}{"{{{.}}}"}{{#-last}} })},{{/-last}}{{^-last}},{{/-last}}{{/enumValues}}{{^enumValues}}{"{{defaultValue}}"} })},{{/enumValues}}{{#-last}} }));{{/-last}}
     {{/variables}}{{^variables}}QMap<QString, {{prefix}}ServerVariable>()));{{/variables}}
 {{/vendorExtensions.x-cpp-global-server-list}}
 {{#operations}}
    {{#operation}}
    {{^servers}}
-    _serverConfigs.insert("{{nickname}}", defaultConf);
-    _serverIndices.insert("{{nickname}}", 0);
+    _serverConfigs.insert(QStringLiteral("{{nickname}}"), defaultConf);
+    _serverIndices.insert(QStringLiteral("{{nickname}}"), 0);
     {{/servers}}
     {{#servers}}
     serverConf.append({{prefix}}ServerConfiguration(
-    QUrl("{{{url}}}"),
-    "{{{description}}}{{^description}}No description provided{{/description}}",
+    QUrl::fromEncoded("{{{url}}}"),
+    QStringLiteral("{{{description}}}{{^description}}No description provided{{/description}}"),
     {{#variables}}{{#-first}}QMap<QString, {{prefix}}ServerVariable>{ {{/-first}}
-    {"{{{name}}}", {{prefix}}ServerVariable("{{{description}}}{{^description}}No description provided{{/description}}","{{{defaultValue}}}",
+    {"{{{name}}}", {{prefix}}ServerVariable("{{{description}}}{{^description}}No description provided{{/description}}QLatin1Char(','){{{defaultValue}}}",
     QSet<QString>{ {{#enumValues}}{"{{{.}}}"}{{#-last}} })}, {{/-last}}{{^-last}},{{/-last}}{{/enumValues}}{{^enumValues}}{"{{defaultValue}}"} })},{{/enumValues}}{{#-last}} }));{{/-last}}
     {{/variables}}{{^variables}}QMap<QString, {{prefix}}ServerVariable>()));{{/variables}}
     {{#-last}}_serverConfigs.insert("{{nickname}}", serverConf);
@@ -169,65 +169,65 @@ void {{classname}}::abortRequests() {
 }
 
 QString {{classname}}::getParamStylePrefix(const QString &style) {
-    if (style == "matrix") {
-        return ";";
-    } else if (style == "label") {
-        return ".";
-    } else if (style == "form") {
-        return "&";
-    } else if (style == "simple") {
-        return "";
-    } else if (style == "spaceDelimited") {
-        return "&";
-    } else if (style == "pipeDelimited") {
-        return "&";
+    if (style == QLatin1String("matrix")) {
+        return QLatin1Char(';');
+    } else if (style == QLatin1String("label")) {
+        return QLatin1Char('.');
+    } else if (style == QLatin1String("form")) {
+        return QLatin1Char('&');
+    } else if (style == QLatin1String("simple")) {
+        return QString();
+    } else if (style == QLatin1String("spaceDelimited")) {
+        return QLatin1Char('&');
+    } else if (style == QLatin1String("pipeDelimited")) {
+        return QLatin1Char('&');
     } else {
-        return "none";
+        return QStringLiteral("none");
     }
 }
 
 QString {{classname}}::getParamStyleSuffix(const QString &style) {
-    if (style == "matrix") {
-        return "=";
-    } else if (style == "label") {
-        return "";
-    } else if (style == "form") {
-        return "=";
-    } else if (style == "simple") {
-        return "";
-    } else if (style == "spaceDelimited") {
-        return "=";
-    } else if (style == "pipeDelimited") {
-        return "=";
+    if (style == QLatin1String("matrix")) {
+        return QLatin1Char('=');
+    } else if (style == QLatin1String("label")) {
+        return QString();
+    } else if (style == QLatin1String("form")) {
+        return QLatin1Char('=');
+    } else if (style == QLatin1String("simple")) {
+        return QString();
+    } else if (style == QLatin1String("spaceDelimited")) {
+        return QLatin1Char('=');
+    } else if (style == QLatin1String("pipeDelimited")) {
+        return QLatin1Char('=');
     } else {
-        return "none";
+        return QStringLiteral("none");
     }
 }
 
 QString {{classname}}::getParamStyleDelimiter(const QString &style, const QString &name, bool isExplode) {
 
-    if (style == "matrix") {
-        return (isExplode) ? ";" + name + "=" : ",";
+    if (style == QLatin1String("matrix")) {
+        return (isExplode) ? QLatin1Char(';') + name + QLatin1Char('=') : QStringLiteral(',');
 
-    } else if (style == "label") {
-        return (isExplode) ? "." : ",";
+    } else if (style == QLatin1String("label")) {
+        return (isExplode) ? QLatin1Char('.') : QLatin1Char(',');
 
-    } else if (style == "form") {
-        return (isExplode) ? "&" + name + "=" : ",";
+    } else if (style == QLatin1String("form")) {
+        return (isExplode) ? QLatin1Char('&') + name + QLatin1Char('=') : QStringLiteral(',');
 
-    } else if (style == "simple") {
-        return ",";
-    } else if (style == "spaceDelimited") {
-        return (isExplode) ? "&" + name + "=" : " ";
+    } else if (style == QLatin1String("simple")) {
+        return QLatin1Char(',');
+    } else if (style == QLatin1String("spaceDelimited")) {
+        return (isExplode) ? QLatin1Char('&') + name + QLatin1Char('=') : QStringLiteral(' ');
 
-    } else if (style == "pipeDelimited") {
-        return (isExplode) ? "&" + name + "=" : "|";
+    } else if (style == QLatin1String("pipeDelimited")) {
+        return (isExplode) ? QLatin1Char('&') + name + QLatin1Char('=') : QStringLiteral('|');
 
-    } else if (style == "deepObject") {
-        return (isExplode) ? "&" : "none";
+    } else if (style == QLatin1String("deepObject")) {
+        return (isExplode) ? QStringLiteral("&") : QStringLiteral("none");
 
     } else {
-        return "none";
+        return QStringLiteral("none");
     }
 }
 
@@ -241,10 +241,10 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
     }
     {{/isKeyInHeader}}{{#isKeyInQuery}}
     if (_apiKeys.contains("{{name}}")) {
-        if (fullPath.indexOf("?") > 0)
-            fullPath.append("&");
+        if (fullPath.indexOf(QLatin1Char('?')) > 0)
+            fullPath.append(QLatin1Char('&'));
         else
-            fullPath.append("?");
+            fullPath.append(QLatin1Char('?'));
         fullPath.append("{{{name}}}=").append(_apiKeys.find("{{name}}").value());
     }
     {{/isKeyInQuery}}{{/isApiKey}}{{#isBasicBearer}}
@@ -253,32 +253,32 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
     {{/isBasicBearer}}{{#isBasicBasic}}
     if (!_username.isEmpty() && !_password.isEmpty()) {
         QByteArray b64;
-        b64.append(_username.toUtf8() + ":" + _password.toUtf8());
-        addHeaders("Authorization","Basic " + b64.toBase64());
+        b64.append(_username.toUtf8() + QLatin1Char(':') + _password.toUtf8());
+        addHeaders("AuthorizationQLatin1Char(',')Basic " + b64.toBase64());
     }{{/isBasicBasic}}{{/authMethods}}
     {{#pathParams}}
     {{^required}}if ({{paramName}}.hasValue()) {{/required}}
     {
-        QString {{paramName}}PathParam("{");
-        {{paramName}}PathParam.append("{{baseName}}").append("}");
+        QString {{paramName}}PathParam(QLatin1Char('{'));
+        {{paramName}}PathParam.append("{{baseName}}").append(QLatin1Char('}'));
         QString pathPrefix, pathSuffix, pathDelimiter;
         QString pathStyle = "{{style}}";
-        if (pathStyle == "")
-            pathStyle = "simple";
+        if (pathStyle.isEmpty())
+            pathStyle = QStringLiteral("simple");
         pathPrefix = getParamStylePrefix(pathStyle);
         pathSuffix = getParamStyleSuffix(pathStyle);
         pathDelimiter = getParamStyleDelimiter(pathStyle, "{{baseName}}", {{isExplode}});
     {{^collectionFormat}}
         {{^isPrimitiveType}}
-        QString paramString = (pathStyle == "matrix" && {{isExplode}}) ? pathPrefix : pathPrefix+"{{baseName}}"+pathSuffix;
+        QString paramString = (pathStyle == QLatin1String("matrix") && {{isExplode}}) ? pathPrefix : pathPrefix+"{{baseName}}"+pathSuffix;
         QJsonObject parameter = {{paramName}}{{^required}}.value(){{/required}}.asJsonObject();
         qint32 count = 0;
         foreach(const QString& key, parameter.keys()) {
             if (count > 0) {
-                pathDelimiter = (pathStyle == "matrix" && {{isExplode}}) ? ";" : getParamStyleDelimiter(pathStyle, key, {{isExplode}});
+                pathDelimiter = (pathStyle == QLatin1String("matrix") && {{isExplode}}) ? QLatin1Char(';') : getParamStyleDelimiter(pathStyle, key, {{isExplode}});
                 paramString.append(pathDelimiter);
             }
-            QString assignOperator = ({{isExplode}}) ? "=" : ",";
+            QString assignOperator = ({{isExplode}}) ? QLatin1Char('=') : QLatin1Char(',');
             switch(parameter.value(key).type()) {
                 case QJsonValue::String:
                 {
@@ -314,13 +314,13 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
         fullPath.replace({{paramName}}PathParam, QUrl::toPercentEncoding(paramString));
         {{/isPrimitiveType}}
         {{#isPrimitiveType}}
-        QString paramString = (pathStyle == "matrix") ? pathPrefix+"{{baseName}}"+pathSuffix : pathPrefix;
+        QString paramString = (pathStyle == QLatin1String("matrix")) ? pathPrefix+"{{baseName}}"+pathSuffix : pathPrefix;
         fullPath.replace({{paramName}}PathParam, paramString+QUrl::toPercentEncoding(::{{cppNamespace}}::toStringValue({{paramName}}{{^required}}.value(){{/required}})));
         {{/isPrimitiveType}}
 {{/collectionFormat}}
 {{#collectionFormat}}
         if ({{{paramName}}}{{^required}}.value(){{/required}}.size() > 0) {
-            QString paramString = (pathStyle == "matrix") ? pathPrefix+"{{baseName}}"+pathSuffix : pathPrefix;
+            QString paramString = (pathStyle == QLatin1String("matrix")) ? pathPrefix+"{{baseName}}"+pathSuffix : pathPrefix;
             qint32 count = 0;
             foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                 if (count > 0) {
@@ -347,48 +347,48 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
         querySuffix = getParamStyleSuffix(queryStyle);
         queryDelimiter = getParamStyleDelimiter(queryStyle, "{{baseName}}", {{isExplode}});
     {{^collectionFormat}}
-        if (fullPath.indexOf("?") > 0)
+        if (fullPath.indexOf(QLatin1Char('?')) > 0)
             fullPath.append(queryPrefix);
         else
-            fullPath.append("?");
+            fullPath.append(QLatin1Char('?'));
         {{^isPrimitiveType}}
-        QString paramString = (queryStyle == "form" && {{isExplode}}) ? "" : (queryStyle == "form" && !({{isExplode}})) ? "{{baseName}}"+querySuffix : "";
+        QString paramString = (queryStyle == QLatin1String("form") && {{isExplode}}) ? "" : (queryStyle == QLatin1String("form") && !({{isExplode}})) ? "{{baseName}}"+querySuffix : "";
         QJsonObject parameter = {{paramName}}{{^required}}.value(){{/required}}.asJsonObject();
         qint32 count = 0;
         foreach(const QString& key, parameter.keys()) {
             if (count > 0) {
-                queryDelimiter =  ((queryStyle == "form" || queryStyle == "deepObject") && {{isExplode}}) ? "&" : getParamStyleDelimiter(queryStyle, key, {{isExplode}});
+                queryDelimiter =  ((queryStyle == QLatin1String("form") || queryStyle == QLatin1String("deepObject")) && {{isExplode}}) ? QLatin1Char('&') : getParamStyleDelimiter(queryStyle, key, {{isExplode}});
                 paramString.append(queryDelimiter);
             }
             QString assignOperator;
-            if (queryStyle == "form")
-                assignOperator = ({{isExplode}}) ? "=" : ",";
-            else if (queryStyle == "deepObject")
-                assignOperator = ({{isExplode}}) ? "=" : "none";
+            if (queryStyle == QLatin1String("form"))
+                assignOperator = ({{isExplode}}) ? QLatin1Char('=') : QLatin1Char(',');
+            else if (queryStyle == QLatin1String("deepObject"))
+                assignOperator = ({{isExplode}}) ? QLatin1Char('=') : "none";
             switch(parameter.value(key).type()) {
                 case QJsonValue::String:
                 {
-                    paramString.append(((queryStyle == "form") ? key : QString("{{baseName}}").append("[").append(key).append("]"))+assignOperator+parameter.value(key).toString());
+                    paramString.append(((queryStyle == QLatin1String("form")) ? key : QStringLiteral("{{baseName}}").append(QLatin1Char('[')).append(key).append(QLatin1Char(']')))+assignOperator+parameter.value(key).toString());
                     break;
                 }
                 case QJsonValue::Double:
                 {
-                    paramString.append(((queryStyle == "form") ? key : QString("{{baseName}}").append("[").append(key).append("]"))+assignOperator+QString::number(parameter.value(key).toDouble()));
+                    paramString.append(((queryStyle == QLatin1String("form")) ? key : QStringLiteral("{{baseName}}").append(QLatin1Char('[')).append(key).append(QLatin1Char(']')))+assignOperator+QString::number(parameter.value(key).toDouble()));
                     break;
                 }
                 case QJsonValue::Bool:
                 {
-                    paramString.append(((queryStyle == "form") ? key : QString("{{baseName}}").append("[").append(key).append("]"))+assignOperator+QVariant(parameter.value(key).toBool()).toString());
+                    paramString.append(((queryStyle == QLatin1String("form")) ? key : QStringLiteral("{{baseName}}").append(QLatin1Char('[')).append(key).append(QLatin1Char(']')))+assignOperator+QVariant(parameter.value(key).toBool()).toString());
                     break;
                 }
                 case QJsonValue::Array:
                 {
-                    paramString.append(((queryStyle == "form") ? key : QString("{{baseName}}").append("[").append(key).append("]"))+assignOperator+QVariant(parameter.value(key).toArray()).toString());
+                    paramString.append(((queryStyle == QLatin1String("form")) ? key : QStringLiteral("{{baseName}}").append(QLatin1Char('[')).append(key).append(QLatin1Char(']')))+assignOperator+QVariant(parameter.value(key).toArray()).toString());
                     break;
                 }
                 case QJsonValue::Object:
                 {
-                    paramString.append(((queryStyle == "form") ? key : QString("{{baseName}}").append("[").append(key).append("]"))+assignOperator+QVariant(parameter.value(key).toObject()).toString());
+                    paramString.append(((queryStyle == QLatin1String("form")) ? key : QStringLiteral("{{baseName}}").append(QLatin1Char('[')).append(key).append(QLatin1Char(']')))+assignOperator+QVariant(parameter.value(key).toObject()).toString());
                     break;
                 }
                 case QJsonValue::Null:
@@ -404,19 +404,19 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
 {{/collectionFormat}}
 {{#collectionFormat}}
         if ({{{paramName}}}{{^required}}.value(){{/required}}.size() > 0) {
-            if (QString("{{collectionFormat}}").indexOf("multi") == 0) {
+            if (QStringLiteral("{{collectionFormat}}").indexOf("multi") == 0) {
                 foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
-                    if (fullPath.indexOf("?") > 0)
+                    if (fullPath.indexOf(QLatin1Char('?')) > 0)
                         fullPath.append(queryPrefix);
                     else
-                        fullPath.append("?");
+                        fullPath.append(QLatin1Char('?'));
                     fullPath.append("{{{baseName}}}=").append(::{{cppNamespace}}::toStringValue(t));
                 }
-            } else if (QString("{{collectionFormat}}").indexOf("ssv") == 0) {
-                if (fullPath.indexOf("?") > 0)
-                    fullPath.append("&");
+            } else if (QStringLiteral("{{collectionFormat}}").indexOf("ssv") == 0) {
+                if (fullPath.indexOf(QLatin1Char('?')) > 0)
+                    fullPath.append(QLatin1Char('&'));
                 else
-                    fullPath.append("?").append(queryPrefix).append("{{baseName}}").append(querySuffix);
+                    fullPath.append(QLatin1Char('?')).append(queryPrefix).append("{{baseName}}").append(querySuffix);
                 qint32 count = 0;
                 foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                     if (count > 0) {
@@ -425,11 +425,11 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
                     fullPath.append(::{{cppNamespace}}::toStringValue(t));
                     count++;
                 }
-            } else if (QString("{{collectionFormat}}").indexOf("tsv") == 0) {
-                if (fullPath.indexOf("?") > 0)
-                    fullPath.append("&");
+            } else if (QStringLiteral("{{collectionFormat}}").indexOf("tsv") == 0) {
+                if (fullPath.indexOf(QLatin1Char('?')) > 0)
+                    fullPath.append(QLatin1Char('&'));
                 else
-                    fullPath.append("?").append(queryPrefix).append("{{baseName}}").append(querySuffix);
+                    fullPath.append(QLatin1Char('?')).append(queryPrefix).append("{{baseName}}").append(querySuffix);
                 qint32 count = 0;
                 foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                     if (count > 0) {
@@ -438,11 +438,11 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
                     fullPath.append(::{{cppNamespace}}::toStringValue(t));
                     count++;
                 }
-            } else if (QString("{{collectionFormat}}").indexOf("csv") == 0) {
-                if (fullPath.indexOf("?") > 0)
-                    fullPath.append("&");
+            } else if (QStringLiteral("{{collectionFormat}}").indexOf("csv") == 0) {
+                if (fullPath.indexOf(QLatin1Char('?')) > 0)
+                    fullPath.append(QLatin1Char('&'));
                 else
-                    fullPath.append("?").append(queryPrefix).append("{{baseName}}").append(querySuffix);
+                    fullPath.append(QLatin1Char('?')).append(queryPrefix).append("{{baseName}}").append(querySuffix);
                 qint32 count = 0;
                 foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                     if (count > 0) {
@@ -451,11 +451,11 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
                     fullPath.append(::{{cppNamespace}}::toStringValue(t));
                     count++;
                 }
-            } else if (QString("{{collectionFormat}}").indexOf("pipes") == 0) {
-                if (fullPath.indexOf("?") > 0)
-                    fullPath.append("&");
+            } else if (QStringLiteral("{{collectionFormat}}").indexOf("pipes") == 0) {
+                if (fullPath.indexOf(QLatin1Char('?')) > 0)
+                    fullPath.append(QLatin1Char('&'));
                 else
-                    fullPath.append("?").append(queryPrefix).append("{{baseName}}").append(querySuffix);
+                    fullPath.append(QLatin1Char('?')).append(queryPrefix).append("{{baseName}}").append(querySuffix);
                 qint32 count = 0;
                 foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                     if (count > 0) {
@@ -464,11 +464,11 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
                     fullPath.append(::{{cppNamespace}}::toStringValue(t));
                     count++;
                 }
-            } else if (QString("{{collectionFormat}}").indexOf("deepObject") == 0) {
-                if (fullPath.indexOf("?") > 0)
-                    fullPath.append("&");
+            } else if (QStringLiteral("{{collectionFormat}}").indexOf("deepObject") == 0) {
+                if (fullPath.indexOf(QLatin1Char('?')) > 0)
+                    fullPath.append(QLatin1Char('&'));
                 else
-                    fullPath.append("?").append(queryPrefix).append("{{baseName}}").append(querySuffix);
+                    fullPath.append(QLatin1Char('?')).append(queryPrefix).append("{{baseName}}").append(querySuffix);
                 qint32 count = 0;
                 foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                     if (count > 0) {
@@ -534,9 +534,9 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
         qint32 count = 0;
         foreach(const QString& key, parameter.keys()) {
             if (count > 0) {
-                headerString.append(",");
+                headerString.append(QLatin1Char(','));
             }
-            QString assignOperator = ({{isExplode}}) ? "=" : ",";
+            QString assignOperator = ({{isExplode}}) ? QLatin1Char('=') : QLatin1Char(',');
             switch(parameter.value(key).type()) {
                 case QJsonValue::String:
                 {
@@ -581,7 +581,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
             qint32 count = 0;
             foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                 if (count > 0) {
-                    headerString.append(",");
+                    headerString.append(QLatin1Char(','));
                 }
                 headerString.append(::{{cppNamespace}}::toStringValue(t));
                 count++;
@@ -594,7 +594,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
 {{#cookieParams}}
     {{^required}}if ({{paramName}}.hasValue()){{/required}}
     {
-        if (QString("{{style}}").indexOf("form") == 0) {
+        if (QStringLiteral("{{style}}").indexOf("form") == 0) {
         {{^collectionFormat}}
         {{^isPrimitiveType}}
         {{^isExplode}}
@@ -603,32 +603,32 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
             qint32 count = 0;
             foreach(const QString& key, parameter.keys()) {
                 if (count > 0) {
-                    cookieString.append(",");
+                    cookieString.append(QLatin1Char(','));
                 }
                 switch(parameter.value(key).type()) {
                     case QJsonValue::String:
                     {
-                        cookieString.append(key+","+parameter.value(key).toString());
+                        cookieString.append(key+QLatin1Char(',')+parameter.value(key).toString());
                         break;
                     }
                     case QJsonValue::Double:
                     {
-                        cookieString.append(key+","+QString::number(parameter.value(key).toDouble()));
+                        cookieString.append(key+QLatin1Char(',')+QString::number(parameter.value(key).toDouble()));
                         break;
                     }
                     case QJsonValue::Bool:
                     {
-                        cookieString.append(key+","+QVariant(parameter.value(key).toBool()).toString());
+                        cookieString.append(key+QLatin1Char(',')+QVariant(parameter.value(key).toBool()).toString());
                         break;
                     }
                     case QJsonValue::Array:
                     {
-                        cookieString.append(key+","+QVariant(parameter.value(key).toArray()).toString());
+                        cookieString.append(key+QLatin1Char(',')+QVariant(parameter.value(key).toArray()).toString());
                         break;
                     }
                     case QJsonValue::Object:
                     {
-                        cookieString.append(key+","+QVariant(parameter.value(key).toObject()).toString());
+                        cookieString.append(key+QLatin1Char(',')+QVariant(parameter.value(key).toObject()).toString());
                         break;
                     }
                     case QJsonValue::Null:
@@ -653,7 +653,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
             qint32 count = 0;
             foreach ({{{baseType}}} t, {{paramName}}{{^required}}.value(){{/required}}) {
                 if (count > 0) {
-                    cookieString.append(",");
+                    cookieString.append(QLatin1Char(','));
                 }
                 cookieString.append(::{{cppNamespace}}::toStringValue(t));
                 count++;
@@ -690,7 +690,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
     {{#scopes}}
     scope.append("{{scope}}");
     {{/scopes}}
-    auto token = _authFlow.getToken(scope.join(" "));
+    auto token = _authFlow.getToken(scope.join(QLatin1Char(' ')));
     if(token.isValid())
         input.headers.insert("Authorization", "Bearer " + token.getToken());
 
@@ -720,7 +720,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
     {{#scopes}}
     scope.append("{{scope}}");
     {{/scopes}}
-    auto token = _implicitFlow.getToken(scope.join(" "));
+    auto token = _implicitFlow.getToken(scope.join(QLatin1Char(' ')));
     if(token.isValid())
         input.headers.insert("Authorization", "Bearer " + token.getToken());
 
@@ -750,7 +750,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
     {{#scopes}}
     scope.append("{{scope}}");
     {{/scopes}}
-    auto token = _credentialFlow.getToken(scope.join(" "));
+    auto token = _credentialFlow.getToken(scope.join(QLatin1Char(' ')));
     if(token.isValid())
         input.headers.insert("Authorization", "Bearer " + token.getToken());
 
@@ -780,7 +780,7 @@ void {{classname}}::{{nickname}}({{#allParams}}{{#required}}const {{{dataType}}}
     {{#scopes}}
     scope.append("{{scope}}");
     {{/scopes}}
-    auto token = _passwordFlow.getToken(scope.join(" "));
+    auto token = _passwordFlow.getToken(scope.join(QLatin1Char(' ')));
     if(token.isValid())
         input.headers.insert("Authorization", "Bearer " + token.getToken());
 
@@ -810,7 +810,7 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     QNetworkReply::NetworkError error_type = worker->error_type;
 
     if (worker->error_type != QNetworkReply::NoError) {
-        error_str = QString("%1, %2").arg(worker->error_str, QString(worker->response));
+        error_str = QStringLiteral("%1, %2").arg(worker->error_str, QString(worker->response));
     }
     {{#returnType}}
     {{#isArray}}
@@ -862,7 +862,7 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     {{#scopes}}
         scope.append("{{scope}}");
     {{/scopes}}
-        QString scopeStr = scope.join(" ");
+        QString scopeStr = scope.join(QLatin1Char(' '));
         QString authorizationUrl("{{authorizationUrl}}");
         QString tokenUrl("{{tokenUrl}}");
         //TODO get clientID and Secret and state in the config? https://swagger.io/docs/specification/authentication/oauth2/ states that you should do as you like
@@ -875,7 +875,7 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     {{#scopes}}
         scope.append("{{scope}}");
     {{/scopes}}
-        QString scopeStr = scope.join(" ");
+        QString scopeStr = scope.join(QLatin1Char(' '));
         QString authorizationUrl("{{authorizationUrl}}");
         //TODO get clientID and Secret and state in the config? https://swagger.io/docs/specification/authentication/oauth2/ states that you should do as you like
         _implicitFlow.setVariables(authorizationUrl, scopeStr, "state" , "http://127.0.0.1:9999", "clientId");
@@ -887,7 +887,7 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     {{#scopes}}
         scope.append("{{scope}}");
     {{/scopes}}
-        QString scopeStr = scope.join(" ");
+        QString scopeStr = scope.join(QLatin1Char(' '));
         QString tokenUrl("{{tokenUrl}}");
         //TODO get clientID and Secret and state in the config? https://swagger.io/docs/specification/authentication/oauth2/ states that you should do as you like
         _credentialFlow.setVariables(tokenUrl , scopeStr, "clientId", "clientSecret");
@@ -899,7 +899,7 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     {{#scopes}}
         scope.append("{{scope}}");
     {{/scopes}}
-        QString scopeStr = scope.join(" ");
+        QString scopeStr = scope.join(QLatin1Char(' '));
         QString tokenUrl("{{tokenUrl}}");
         //TODO get clientID and Secret and state in the config? https://swagger.io/docs/specification/authentication/oauth2/ states that you should do as you like
         _passwordFlow.setVariables(tokenUrl , scopeStr ,"clientId", "clientSecret", "username", "password");
@@ -918,42 +918,42 @@ void {{classname}}::tokenAvailable(){
     oauthToken token; 
     switch (_OauthMethod) {
     case 1: //implicit flow
-        token = _implicitFlow.getToken(_latestScope.join(" "));
+        token = _implicitFlow.getToken(_latestScope.join(QLatin1Char(' ')));
         if(token.isValid()){
             _latestInput.headers.insert("Authorization", "Bearer " + token.getToken());
             _latestWorker->execute(&_latestInput);
         }else{
-            _implicitFlow.removeToken(_latestScope.join(" "));
+            _implicitFlow.removeToken(_latestScope.join(QLatin1Char(' ')));
             qDebug() << "Could not retreive a valid token";
         }
         break;
     case 2: //authorization flow
-        token = _authFlow.getToken(_latestScope.join(" "));
+        token = _authFlow.getToken(_latestScope.join(QLatin1Char(' ')));
         if(token.isValid()){
             _latestInput.headers.insert("Authorization", "Bearer " + token.getToken());
             _latestWorker->execute(&_latestInput);
         }else{
-            _authFlow.removeToken(_latestScope.join(" "));    
+            _authFlow.removeToken(_latestScope.join(QLatin1Char(' ')));
             qDebug() << "Could not retreive a valid token";
         }
         break;
     case 3: //client credentials flow
-        token = _credentialFlow.getToken(_latestScope.join(" "));
+        token = _credentialFlow.getToken(_latestScope.join(QLatin1Char(' ')));
         if(token.isValid()){
             _latestInput.headers.insert("Authorization", "Bearer " + token.getToken());
             _latestWorker->execute(&_latestInput);
         }else{
-            _credentialFlow.removeToken(_latestScope.join(" "));    
+            _credentialFlow.removeToken(_latestScope.join(QLatin1Char(' ')));
             qDebug() << "Could not retreive a valid token";
         }
         break;
     case 4: //resource owner password flow
-        token = _passwordFlow.getToken(_latestScope.join(" "));
+        token = _passwordFlow.getToken(_latestScope.join(QLatin1Char(' ')));
         if(token.isValid()){
             _latestInput.headers.insert("Authorization", "Bearer " + token.getToken());
             _latestWorker->execute(&_latestInput);
         }else{
-            _credentialFlow.removeToken(_latestScope.join(" "));    
+            _credentialFlow.removeToken(_latestScope.join(QLatin1Char(' ')));
             qDebug() << "Could not retreive a valid token";
         }
         break;

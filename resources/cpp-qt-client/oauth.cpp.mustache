@@ -313,7 +313,7 @@ void ReplyServer::read()
                         </html>";
 
     QByteArray data = socket->readLine();
-    QString splitGetLine = QString(data);
+    QString splitGetLine = QString::fromUtf8(data);
     splitGetLine.remove("GET");
     splitGetLine.remove("HTTP/1.1");
     splitGetLine.remove("\r\n");

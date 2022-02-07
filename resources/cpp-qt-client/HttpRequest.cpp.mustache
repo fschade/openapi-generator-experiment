@@ -34,8 +34,8 @@ namespace {{this}} {
 
 void {{prefix}}HttpRequestInput::initialize() {
     var_layout = NOT_SET;
-    url_str = "";
-    http_method = "GET";
+    url_str.clear();
+    http_method = QStringLiteral("GET");
 }
 
 void {{prefix}}HttpRequestInput::add_var(QString key, QString value) {
@@ -131,7 +131,7 @@ int  {{prefix}}HttpRequestWorker::getHttpResponseCode() const{
 QString {{prefix}}HttpRequestWorker::http_attribute_encode(QString attribute_name, QString input) {
     // result structure follows RFC 5987
     bool need_utf_encoding = false;
-    QString result = "";
+    QString result = {};
     QByteArray input_c = input.toLocal8Bit();
     char c;
     for (int i = 0; i < input_c.length(); i++) {
@@ -140,9 +140,9 @@ QString {{prefix}}HttpRequestWorker::http_attribute_encode(QString attribute_nam
             // ignore and request utf-8 version
             need_utf_encoding = true;
         } else if (c == '"') {
-            result += "\\\"";
+            result += QStringLiteral("\\\"");
         } else {
-            result += c;
+            result += QChar::fromLatin1(c);
         }
     }
 
@@ -152,31 +152,31 @@ QString {{prefix}}HttpRequestWorker::http_attribute_encode(QString attribute_nam
 
     if (!need_utf_encoding) {
         // return simple version
-        return QString("%1=\"%2\"").arg(attribute_name, result);
+        return QStringLiteral("%1=\"%2\"").arg(attribute_name, result);
     }
 
-    QString result_utf8 = "";
+    QString result_utf8 = {};
     for (int i = 0; i < input_c.length(); i++) {
         c = input_c.at(i);
         if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
-            result_utf8 += c;
+            result_utf8 += QChar::fromLatin1(c);
         } else {
-            result_utf8 += "%" + QString::number(static_cast<unsigned char>(input_c.at(i)), 16).toUpper();
+            result_utf8 += QLatin1Char('%') + QString::number(static_cast<unsigned char>(input_c.at(i)), 16).toUpper();
         }
     }
 
     // return enhanced version with UTF-8 support
-    return QString("%1=\"%2\"; %1*=utf-8''%3").arg(attribute_name, result, result_utf8);
+    return QStringLiteral("%1=\"%2\"; %1*=utf-8''%3").arg(attribute_name, result, result_utf8);
 }
 
 void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
 
     // reset variables
     QNetworkReply *reply = nullptr;
-    QByteArray request_content = "";
-    response = "";
+    QByteArray request_content = {};
+    response = {};
     error_type = QNetworkReply::NoError;
-    error_str = "";
+    error_str.clear();
     bool isFormData = false;
 
     // decide on the variable layout
@@ -185,12 +185,12 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
         input->var_layout = MULTIPART;
     }
     if (input->var_layout == NOT_SET) {
-        input->var_layout = input->http_method == "GET" || input->http_method == "HEAD" ? ADDRESS : URL_ENCODED;
+        input->var_layout = input->http_method == QLatin1String("GET") || input->http_method == QLatin1String("HEAD") ? ADDRESS : URL_ENCODED;
     }
 
     // prepare request content
 
-    QString boundary = "";
+    QString boundary = {};
 
     if (input->var_layout == ADDRESS || input->var_layout == URL_ENCODED) {
         // variable layout is ADDRESS or URL_ENCODED
@@ -210,14 +210,14 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
             }
 
             if (input->var_layout == ADDRESS) {
-                input->url_str += "?" + request_content;
-                request_content = "";
+                input->url_str += QLatin1Char('?') + QString::fromUtf8(request_content);
+                request_content = {};
             }
         }
     } else {
         // variable layout is MULTIPART
 
-        boundary = QString("__-----------------------%1%2")
+        boundary = QStringLiteral("__-----------------------%1%2")
                     #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
                             .arg(QDateTime::currentDateTime().toSecsSinceEpoch())
                             .arg(randomGenerator.generate());
@@ -225,29 +225,29 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
                             .arg(QDateTime::currentDateTime().toTime_t())
                             .arg(qrand());
                     #endif
-        QString boundary_delimiter = "--";
-        QString new_line = "\r\n";
+        const QByteArray boundary_delimiter = "--";
+        const QByteArray new_line = "\r\n";
 
         // add variables
         foreach (QString key, input->vars.keys()) {
             // add boundary
-            request_content.append(boundary_delimiter.toUtf8());
+            request_content.append(boundary_delimiter);
             request_content.append(boundary.toUtf8());
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             // add header
             request_content.append("Content-Disposition: form-data; ");
-            request_content.append(http_attribute_encode("name", key).toUtf8());
-            request_content.append(new_line.toUtf8());
+            request_content.append(http_attribute_encode(QStringLiteral("name"), key).toUtf8());
+            request_content.append(new_line);
             request_content.append("Content-Type: text/plain");
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             // add header to body splitter
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             // add variable content
             request_content.append(input->vars.value(key).toUtf8());
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
         }
 
         // add files
@@ -255,9 +255,7 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
             QFileInfo fi(file_info->local_filename);
 
             // ensure necessary variables are available
-            if (file_info->local_filename == nullptr
-                || file_info->local_filename.isEmpty()
-                || file_info->variable_name == nullptr
+            if (file_info->local_filename.isEmpty()
                 || file_info->variable_name.isEmpty()
                 || !fi.exists()
                 || !fi.isFile()
@@ -273,46 +271,46 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
             }
 
             // ensure filename for the request
-            if (file_info->request_filename == nullptr || file_info->request_filename.isEmpty()) {
+            if (file_info->request_filename.isEmpty()) {
                 file_info->request_filename = fi.fileName();
                 if (file_info->request_filename.isEmpty()) {
-                    file_info->request_filename = "file";
+                    file_info->request_filename = QStringLiteral("file");
                 }
             }
 
             // add boundary
-            request_content.append(boundary_delimiter.toUtf8());
+            request_content.append(boundary_delimiter);
             request_content.append(boundary.toUtf8());
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             // add header
             request_content.append(
-                QString("Content-Disposition: form-data; %1; %2").arg(http_attribute_encode("name", file_info->variable_name), http_attribute_encode("filename", file_info->request_filename)).toUtf8());
-            request_content.append(new_line.toUtf8());
+                QStringLiteral("Content-Disposition: form-data; %1; %2").arg(http_attribute_encode(QStringLiteral("name"), file_info->variable_name), http_attribute_encode(QStringLiteral("filename"), file_info->request_filename)).toUtf8());
+            request_content.append(new_line);
 
-            if (file_info->mime_type != nullptr && !file_info->mime_type.isEmpty()) {
+            if (!file_info->mime_type.isEmpty()) {
                 request_content.append("Content-Type: ");
                 request_content.append(file_info->mime_type.toUtf8());
-                request_content.append(new_line.toUtf8());
+                request_content.append(new_line);
             }
 
             request_content.append("Content-Transfer-Encoding: binary");
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             // add header to body splitter
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             // add file content
             request_content.append(file.readAll());
-            request_content.append(new_line.toUtf8());
+            request_content.append(new_line);
 
             file.close();
         }
 
         // add end of body
-        request_content.append(boundary_delimiter.toUtf8());
+        request_content.append(boundary_delimiter);
         request_content.append(boundary.toUtf8());
-        request_content.append(boundary_delimiter.toUtf8());
+        request_content.append(boundary_delimiter);
     }
 
     if (input->request_body.size() > 0) {
@@ -334,18 +332,18 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
     foreach (QString key, input->headers.keys()) { request.setRawHeader(key.toUtf8(), input->headers.value(key).toUtf8()); }
 
     if (request_content.size() > 0 && !isFormData && (input->var_layout != MULTIPART)) {
-        if (!input->headers.contains("Content-Type")) {
-            request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+        if (!input->headers.contains(QLatin1String("Content-Type"))) {
+            request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/json"));
         } else {
-            request.setHeader(QNetworkRequest::ContentTypeHeader, input->headers.value("Content-Type"));
+            request.setHeader(QNetworkRequest::ContentTypeHeader, input->headers.value(QLatin1String("Content-Type")));
         }
         if(isRequestCompressionEnabled){
             request.setRawHeader("Content-Encoding", "gzip");
         }
     } else if (input->var_layout == URL_ENCODED) {
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+        request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
     } else if (input->var_layout == MULTIPART) {
-        request.setHeader(QNetworkRequest::ContentTypeHeader, "multipart/form-data; boundary=" + boundary);
+        request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("multipart/form-data; boundary=") + boundary);
     }
 
     if(isResponseCompressionEnabled){
@@ -354,15 +352,15 @@ void {{prefix}}HttpRequestWorker::execute({{prefix}}HttpRequestInput *input) {
         request.setRawHeader("Accept-Encoding", "identity");
     }
 
-    if (input->http_method == "GET") {
+    if (input->http_method == QLatin1String("GET")) {
         reply = manager->get(request);
-    } else if (input->http_method == "POST") {
+    } else if (input->http_method == QLatin1String("POST")) {
         reply = manager->post(request, request_content);
-    } else if (input->http_method == "PUT") {
+    } else if (input->http_method == QLatin1String("PUT")) {
         reply = manager->put(request, request_content);
-    } else if (input->http_method == "HEAD") {
+    } else if (input->http_method == QLatin1String("HEAD")) {
         reply = manager->head(request);
-    } else if (input->http_method == "DELETE") {
+    } else if (input->http_method == QLatin1String("DELETE")) {
         reply = manager->deleteResource(request);
     } else {
 #if (QT_VERSION >= 0x050800)
@@ -400,7 +398,7 @@ void {{prefix}}HttpRequestWorker::on_reply_finished(QNetworkReply *reply) {
     error_str = reply->errorString();
     if (reply->rawHeaderPairs().count() > 0) {
         for (const auto &item : reply->rawHeaderPairs()) {
-            headers.insert(item.first, item.second);
+            headers.insert(QString::fromUtf8(item.first), QString::fromUtf8(item.second));
         }
     }
     auto rescode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt(&codeSts);
@@ -416,8 +414,8 @@ void {{prefix}}HttpRequestWorker::on_reply_finished(QNetworkReply *reply) {
 
 void {{prefix}}HttpRequestWorker::on_reply_timeout(QNetworkReply *reply) {
     error_type = QNetworkReply::TimeoutError;
-    response = "";
-    error_str = "Timed out waiting for response";
+    response = {};
+    error_str = QStringLiteral("Timed out waiting for response");
     disconnect(reply, nullptr, nullptr, nullptr);
     reply->abort();
     reply->deleteLater();
@@ -430,26 +428,26 @@ void {{prefix}}HttpRequestWorker::process_response(QNetworkReply *reply) {
     QString contentEncodingHdr;
 
     for(auto hdr: getResponseHeaders().keys()){
-        if(hdr.compare(QString("Content-Disposition"), Qt::CaseInsensitive) == 0){
+        if(hdr.compare(QStringLiteral("Content-Disposition"), Qt::CaseInsensitive) == 0){
             contentDispositionHdr = getResponseHeaders().value(hdr);
         }
-        if(hdr.compare(QString("Content-Type"), Qt::CaseInsensitive) == 0){
+        if(hdr.compare(QStringLiteral("Content-Type"), Qt::CaseInsensitive) == 0){
             contentTypeHdr = getResponseHeaders().value(hdr);
         }
-        if(hdr.compare(QString("Content-Encoding"), Qt::CaseInsensitive) == 0){
+        if(hdr.compare(QStringLiteral("Content-Encoding"), Qt::CaseInsensitive) == 0){
             contentEncodingHdr = getResponseHeaders().value(hdr);
         }
     }
 
     if (!contentDispositionHdr.isEmpty()) {
-        auto contentDisposition = contentDispositionHdr.split(QString(";"), SKIP_EMPTY_PARTS);
+        auto contentDisposition = contentDispositionHdr.split(QStringLiteral(";"), SKIP_EMPTY_PARTS);
         auto contentType =
-            !contentTypeHdr.isEmpty() ? contentTypeHdr.split(QString(";"), SKIP_EMPTY_PARTS).first() : QString();
-        if ((contentDisposition.count() > 0) && (contentDisposition.first() == QString("attachment"))) {
+            !contentTypeHdr.isEmpty() ? contentTypeHdr.split(QStringLiteral(";"), SKIP_EMPTY_PARTS).first() : QString();
+        if ((contentDisposition.count() > 0) && (contentDisposition.first() == QStringLiteral("attachment"))) {
             QString filename = QUuid::createUuid().toString();
             for (const auto &file : contentDisposition) {
-                if (file.contains(QString("filename"))) {
-                    filename = file.split(QString("="), SKIP_EMPTY_PARTS).at(1);
+                if (file.contains(QStringLiteral("filename"))) {
+                    filename = file.split(QStringLiteral("="), SKIP_EMPTY_PARTS).at(1);
                     break;
                 }
             }
@@ -459,17 +457,17 @@ void {{prefix}}HttpRequestWorker::process_response(QNetworkReply *reply) {
         }
 
     } else if (!contentTypeHdr.isEmpty()) {
-        auto contentType = contentTypeHdr.split(QString(";"), SKIP_EMPTY_PARTS);
-        if ((contentType.count() > 0) && (contentType.first() == QString("multipart/form-data"))) {
+        auto contentType = contentTypeHdr.split(QStringLiteral(";"), SKIP_EMPTY_PARTS);
+        if ((contentType.count() > 0) && (contentType.first() == QStringLiteral("multipart/form-data"))) {
             // TODO : Handle Multipart responses
         } else {
             if(!contentEncodingHdr.isEmpty()){
-                auto encoding = contentEncodingHdr.split(QString(";"), SKIP_EMPTY_PARTS);
+                auto encoding = contentEncodingHdr.split(QStringLiteral(";"), SKIP_EMPTY_PARTS);
                 if(encoding.count() > 0){
-                    auto compressionTypes = encoding.first().split(',', SKIP_EMPTY_PARTS);
-                    if(compressionTypes.contains("gzip", Qt::CaseInsensitive) || compressionTypes.contains("deflate", Qt::CaseInsensitive)){
+                    auto compressionTypes = encoding.first().split(QLatin1Char(','), SKIP_EMPTY_PARTS);
+                    if(compressionTypes.contains(QLatin1String("gzip"), Qt::CaseInsensitive) || compressionTypes.contains(QLatin1String("deflate"), Qt::CaseInsensitive)){
                         response = decompress(reply->readAll());
-                    } else if(compressionTypes.contains("identity", Qt::CaseInsensitive)){
+                    } else if(compressionTypes.contains(QLatin1String("identity"), Qt::CaseInsensitive)){
                         response = reply->readAll();
                     }
                 }

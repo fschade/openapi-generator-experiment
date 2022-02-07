@@ -48,9 +48,9 @@ public:
                 QString value = serverVariable._defaultValue;
 
                 if (!serverVariable._enumValues.empty() && !serverVariable._enumValues.contains(value)) {
-                    throw std::runtime_error(QString("The variable " + name + " in the server URL has invalid value " + value + ".").toUtf8());
+                    throw std::runtime_error(QStringLiteral("The variable %1 in the server URL has invalid value %2.").arg(name, value).toStdString());
                 }
-                QRegularExpression regex(QString("\\{" + name + "\\}"));
+                QRegularExpression regex(QStringLiteral("\\{%1\\}").arg(name));
                 url = url.replace(regex, value);
 
             }

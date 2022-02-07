@@ -76,10 +76,10 @@ void {{classname}}::fromJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnu
 
     Q_D({{classname}});
 {{^isEnum}}{{#vars}}{{^isContainer}}
-    d->{{name}}_isValid = ::{{cppNamespace}}::fromJsonValue(d->{{name}}, json[QString("{{baseName}}")]);
-    d->{{name}}_isSet = !json[QString("{{baseName}}")].isNull() && d->{{name}}_isValid;{{/isContainer}}{{#isContainer}}{{^items.isContainer}}
-    d->{{name}}_isValid = ::{{cppNamespace}}::fromJsonValue(d->{{name}}, json[QString("{{baseName}}")]);
-    d->{{name}}_isSet = !json[QString("{{baseName}}")].isNull() && d->{{name}}_isValid;{{/items.isContainer}}{{#items.isContainer}}{{#isArray}}
+    d->{{name}}_isValid = ::{{cppNamespace}}::fromJsonValue(d->{{name}}, json[QStringLiteral("{{baseName}}")]);
+    d->{{name}}_isSet = !json[QStringLiteral("{{baseName}}")].isNull() && d->{{name}}_isValid;{{/isContainer}}{{#isContainer}}{{^items.isContainer}}
+    d->{{name}}_isValid = ::{{cppNamespace}}::fromJsonValue(d->{{name}}, json[QStringLiteral("{{baseName}}")]);
+    d->{{name}}_isSet = !json[QStringLiteral("{{baseName}}")].isNull() && d->{{name}}_isValid;{{/items.isContainer}}{{#items.isContainer}}{{#isArray}}
     if(json["{{baseName}}"].isArray()){
         auto arr = json["{{baseName}}"].toArray();
         d->{{name}}_isValid = true;
@@ -113,7 +113,7 @@ QString {{classname}}::asJson() const {
     {{^isEnum}}QJsonObject obj = this->asJsonObject();
     QJsonDocument doc(obj);
     QByteArray bytes = doc.toJson();
-    return QString(bytes);{{/isEnum}}{{#isEnum}}
+    return QString::fromUtf8(bytes);{{/isEnum}}{{#isEnum}}
     QString val;
     {{#allowableValues}}
     switch (d->value){
@@ -136,11 +136,11 @@ QJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnum}} {{classname}}::asJs
     {{^isEnum}}QJsonObject obj;{{#vars}}{{^isContainer}}{{#complexType}}
     if (d->{{name}}.isSet()){{/complexType}}{{^complexType}}
     if (d->{{name}}_isSet){{/complexType}} {
-        obj.insert(QString("{{baseName}}"), ::{{cppNamespace}}::toJsonValue(d->{{name}}));
+        obj.insert(QStringLiteral("{{baseName}}"), ::{{cppNamespace}}::toJsonValue(d->{{name}}));
     }{{/isContainer}}{{#isContainer}}
     if (d->{{name}}.size() > 0) {
-        {{^items.isContainer}}obj.insert(QString("{{baseName}}"), ::{{cppNamespace}}::toJsonValue(d->{{name}}));{{/items.isContainer}}{{#items.isContainer}}
-        obj.insert(QString("{{baseName}}"), toJsonValue(d->{{name}}));{{/items.isContainer}}
+        {{^items.isContainer}}obj.insert(QStringLiteral("{{baseName}}"), ::{{cppNamespace}}::toJsonValue(d->{{name}}));{{/items.isContainer}}{{#items.isContainer}}
+        obj.insert(QStringLiteral("{{baseName}}"), toJsonValue(d->{{name}}));{{/items.isContainer}}
     }{{/isContainer}}{{/vars}}
     return obj;{{/isEnum}}{{#isEnum}}
     {{#allowableValues}}{{#enumVars}}{{#-first}}{{^isString}}return QJsonValue(static_cast<int>(d->value));{{/isString}}{{#isString}}return QJsonValue(asJson());{{/isString}}{{/-first}}{{/enumVars}}{{/allowableValues}}{{/isEnum}}

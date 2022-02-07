@@ -90,7 +90,7 @@ QString toStringValue(const QDateTime &value) {
 }
 
 QString toStringValue(const QByteArray &value) {
-    return QString(value);
+    return QString::fromUtf8(value);
 }
 
 QString toStringValue(const QDate &value) {
@@ -107,7 +107,7 @@ QString toStringValue(const qint64 &value) {
 }
 
 QString toStringValue(const bool &value) {
-    return QString(value ? "true" : "false");
+    return value ? QStringLiteral("true") : QStringLiteral("false");
 }
 
 QString toStringValue(const float &value) {
@@ -148,7 +148,7 @@ QJsonValue toJsonValue(const QDateTime &value) {
 }
 
 QJsonValue toJsonValue(const QByteArray &value) {
-    return QJsonValue(QString(value.toBase64()));
+    return QJsonValue(QString::fromUtf8(value.toBase64()));
 }
 
 QJsonValue toJsonValue(const QDate &value) {
@@ -254,7 +254,7 @@ bool fromStringValue(const QString &inStr, qint64 &value) {
 
 bool fromStringValue(const QString &inStr, bool &value) {
     value = QVariant(inStr).toBool();
-    return ((inStr == "true") || (inStr == "false"));
+    return ((inStr == QLatin1String("true")) || (inStr == QLatin1String("false")));
 }
 
 bool fromStringValue(const QString &inStr, float &value) {
@@ -295,7 +295,7 @@ bool fromJsonValue(QString &value, const QJsonValue &jval) {
         if (jval.isString()) {
             value = jval.toString();
         } else if (jval.isBool()) {
-            value = jval.toBool() ? "true" : "false";
+            value = jval.toBool() ? QStringLiteral("true") : QStringLiteral("false");
         } else if (jval.isDouble()) {
             value = QString::number(jval.toDouble());
         } else {
