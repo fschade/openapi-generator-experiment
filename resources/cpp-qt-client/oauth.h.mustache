@@ -109,7 +109,7 @@ public:
     OauthCode(QObject *parent = nullptr);
     void link() override;
     void unlink() override;
-    void setVariables(QString authUrl, QString tokenUrl, QString scope, QString state, QString redirectUri, QString clientId, QString clientSecret, QString accessType = "");
+    void setVariables(QString authUrl, QString tokenUrl, QString scope, QString state, QString redirectUri, QString clientId, QString clientSecret, QString accessType = {});
 
 private:
     ReplyServer m_server;
@@ -128,7 +128,7 @@ public:
     OauthImplicit(QObject *parent = nullptr);
     void link() override;
     void unlink() override;
-    void setVariables(QString authUrl, QString scope, QString state, QString redirectUri, QString clientId, QString accessType = "");
+    void setVariables(QString authUrl, QString scope, QString state, QString redirectUri, QString clientId, QString accessType = {});
 
 private:
     ReplyServer m_server;

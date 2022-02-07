@@ -44,7 +44,7 @@ QString {{prefix}}HttpFileElement::asJson() const {
     if (!result) {
         qDebug() << "Error opening file " << local_filename;
     }
-    return QString(bArray);
+    return QString::fromUtf8(bArray);
 }
 
 QJsonValue {{prefix}}HttpFileElement::asJsonValue() const {
