@@ -130,6 +130,9 @@ QString {{classname}}::asJson() const {
 
 QJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnum}} {{classname}}::asJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnum}}() const {
     Q_D(const {{classname}});
+    if(!d){
+        return {};
+    }
     {{^isEnum}}QJsonObject obj;{{#vars}}{{^isContainer}}{{#complexType}}
     if (d->{{name}}.isSet()){{/complexType}}{{^complexType}}
     if (d->{{name}}_isSet){{/complexType}} {
@@ -145,10 +148,14 @@ QJson{{^isEnum}}Object{{/isEnum}}{{#isEnum}}Value{{/isEnum}} {{classname}}::asJs
 
 {{^isEnum}}{{#vars}}{{{dataType}}} {{classname}}::{{getter}}() const {
     Q_D(const {{classname}});
+    if(!d){
+        return {};
+    }
     return d->{{name}};
 }
 void {{classname}}::{{setter}}(const {{{dataType}}} &{{name}}) {
     Q_D({{classname}});
+    Q_ASSERT(d);
 
     d->{{name}} = {{name}};
     d->{{name}}_isSet = true;
@@ -156,25 +163,33 @@ void {{classname}}::{{setter}}(const {{{dataType}}} &{{name}}) {
 
 bool {{classname}}::is_{{name}}_Set() const{
     Q_D(const {{classname}});
+    if(!d){
+        return false;
+    }
 
     return d->{{name}}_isSet;
 }
 
 bool {{classname}}::is_{{name}}_Valid() const{
     Q_D(const {{classname}});
-
+    if(!d){
+        return false;
+    }
     return d->{{name}}_isValid;
 }
 
 {{/vars}}{{/isEnum}}{{#isEnum}}
 {{classname}}::e{{classname}} {{classname}}::getValue() const {
     Q_D(const {{classname}});
-
+    if(!d){
+        return {};
+    }
     return d->value;
 }
 
 void {{classname}}::setValue(const {{classname}}::e{{classname}}& value){
     Q_D({{classname}});
+    Q_ASSERT(d);
 
     d->value = value;
     d->value_isSet = true;
@@ -182,7 +197,9 @@ void {{classname}}::setValue(const {{classname}}::e{{classname}}& value){
 {{/isEnum}}
 bool {{classname}}::isSet() const {
     Q_D(const {{classname}});
-
+    if(!d){
+        return false;
+    }
     {{^isEnum}}bool isObjectUpdated = false;
     do {
 {{#vars}}        {{#isContainer}}if (d->{{name}}.size() > 0){{/isContainer}}{{^isContainer}}{{#complexType}}if (d->{{name}}.isSet()){{/complexType}}{{^complexType}}if (d->{{name}}_isSet){{/complexType}}{{/isContainer}} {
@@ -198,6 +215,9 @@ bool {{classname}}::isSet() const {
 
 bool {{classname}}::isValid() const {
     Q_D(const {{classname}});
+    if(!d){
+        return false;
+    }
     // only required properties are required for the object to be considered valid
     return {{^isEnum}}{{#vars}}{{#required}}d->{{name}}_isValid && {{/required}}{{/vars}}true{{/isEnum}}{{#isEnum}}d->value_isValid{{/isEnum}};
 }
