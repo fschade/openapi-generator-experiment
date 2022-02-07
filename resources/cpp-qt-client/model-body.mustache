@@ -61,7 +61,7 @@ void {{classname}}::initializeModel() {
 }
 
 void {{classname}}::fromJson(QString jsonString) {
-    {{^isEnum}}QByteArray array(jsonString.toStdString().c_str());
+    {{^isEnum}}QByteArray array(jsonString.toUtf8());
     QJsonDocument doc = QJsonDocument::fromJson(array);
     QJsonObject jsonObject = doc.object();
     this->fromJsonObject(jsonObject);{{/isEnum}}{{#isEnum}}{{#allowableValues}}{{#enumVars}}

@@ -816,8 +816,8 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     {{#isArray}}
     {{{returnType}}} output;
     QString json(worker->response);
-    QByteArray array(json.toStdString().c_str());
-    QJsonDocument doc = QJsonDocument::fromJson(array);
+    QByteArray array();
+    QJsonDocument doc = QJsonDocument::fromJson(json.toUtf8());
     QJsonArray jsonArray = doc.array();
     foreach (QJsonValue obj, jsonArray) {
         {{{returnBaseType}}} val;
@@ -835,7 +835,7 @@ void {{classname}}::{{nickname}}Callback({{prefix}}HttpRequestWorker *worker) {
     {{#isMap}}
     {{{returnType}}} output;
     QString json(worker->response);
-    QByteArray array(json.toStdString().c_str());
+    QByteArray array(json.toUtf8());
     QJsonDocument doc = QJsonDocument::fromJson(array);
     QJsonObject obj = doc.object();
     foreach (QString key, obj.keys()) {

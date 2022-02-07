@@ -327,7 +327,7 @@ bool fromJsonValue(QDateTime &value, const QJsonValue &jval) {
 bool fromJsonValue(QByteArray &value, const QJsonValue &jval) {
     bool ok = true;
     if (!jval.isUndefined() && !jval.isNull() && jval.isString()) {
-        value = QByteArray::fromBase64(QByteArray::fromStdString(jval.toString().toStdString()));
+        value = QByteArray::fromBase64(jval.toString().toUtf8());
         ok = value.size() > 0;
     } else {
         ok = false;
