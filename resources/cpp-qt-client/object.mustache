@@ -28,7 +28,7 @@ public:
 
     virtual QString asJson() const {
         QJsonDocument doc(jObj);
-        return doc.toJson(QJsonDocument::Compact);
+        return QString::fromUtf8(doc.toJson(QJsonDocument::Compact));
     }
 
     virtual void fromJson(QString jsonString) {
